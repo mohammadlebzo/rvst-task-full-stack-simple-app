@@ -1,0 +1,17 @@
+{
+  "name": "rvst-task-full-stack-simple-app",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "product-service",
+    "order-service",
+    "admin-frontend",
+    "common"
+  ],
+  "scripts": {
+    "dev:product": "npm run start:dev --workspace=product-service",
+    "dev:order": "npm run start:dev --workspace=order-service",
+    "dev:admin": "npm run dev --workspace=admin-frontend",
+    "build:all": "npm run build --workspaces"
+  }
+}
