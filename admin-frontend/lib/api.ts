@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios';
-import { PRODUCT_SERVICE_URL, ORDER_SERVICE_URL } from './config';
 import type { Product, CreateProductDto, UpdateProductDto } from 'common/types/product.types';
 import type { Order, CreateOrderDto } from 'common/types/order.types';
 
@@ -40,20 +39,20 @@ export function getErrorMessage(error: unknown): string {
   return 'An unexpected error occurred';
 }
 
-// Create axios instances for each service
+// Axios instances for each service
 const productApi = axios.create({
-  baseURL: PRODUCT_SERVICE_URL,
+  baseURL: process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL || 'http://localhost:3001',
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 });
 
 const orderApi = axios.create({
-  baseURL: ORDER_SERVICE_URL,
+  baseURL: process.env.NEXT_PUBLIC_ORDER_SERVICE_URL || 'http://localhost:3002',
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 });
 
-// Add response interceptor for error handling
+// Response interceptor for error handling
 [productApi, orderApi].forEach(api => {
   api.interceptors.response.use(
     (response) => response,

@@ -27,7 +27,7 @@ export class OrdersService {
   }
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    // Step 1: Fetch product details from Product Service
+    // Fetching product details
     let product: Product;
     try {
       const response = await firstValueFrom(
@@ -41,17 +41,17 @@ export class OrdersService {
       throw new BadRequestException('Failed to fetch product details');
     }
 
-    // Step 2: Validate stock availability
+    // Validate stock availability
     if (product.stock < createOrderDto.quantity) {
       throw new UnprocessableEntityException(
         `Insufficient stock. Available: ${product.stock}, Requested: ${createOrderDto.quantity}`
       );
     }
 
-    // Step 3: Calculate total price
+    // Calculate total price
     const totalPrice = product.price * createOrderDto.quantity;
 
-    // Step 4: Create order
+    // Create order
     const order = this.ordersRepository.create({
       productId: createOrderDto.productId,
       quantity: createOrderDto.quantity,
@@ -60,7 +60,7 @@ export class OrdersService {
     });
     const savedOrder = await this.ordersRepository.save(order);
 
-    // Step 5: Reduce stock in Product Service
+    // Reduce stock in Product Service
     try {
       await firstValueFrom(
         this.httpService.patch(
