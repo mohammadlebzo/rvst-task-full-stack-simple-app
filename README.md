@@ -5,6 +5,7 @@ I did not implement an API Gateway here as it was not requested. In a real situa
 There are many things that can be done better here, but I'm keeping a simple scope for this project. (I did add some little things though :)
 
 ## Stack
+Monorepo for Simplicity as it is a small project, no need for Polyrepo.
 - Backend: NestJS (product-service on 3001, order-service on 3002), TypeORM, SQLite (dev), Swagger docs at `/api`
 - Frontend: Next.js admin app on 3000, React 19, TanStack Query, axios, Tailwind, react-hot-toast
 
